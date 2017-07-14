@@ -38,3 +38,50 @@ export const tap = value => fn => (
 	console.log(value)
 )
 
+
+
+/* 
+ * partial Function
+*/
+export const partial = function (fn,...partialArgs){
+  let args = partialArgs
+  return function(...fullArguments) {
+    let arg = 0
+    for (let i = 0; i < args.length && arg < fullArguments.length; i++) {
+      if (args[i] === undefined) {
+        args[i] = fullArguments[arg++]
+        }
+      }
+      return fn.apply(null, args)
+  }
+}
+
+export const map = (arr, fn) => {
+	const newArr = []
+	for( const a of arr) {
+		newArr.push(fn(a))
+	}
+	return newArr
+}
+
+export const filter = (arr, fn) => {
+	const res = []
+	for( var a of arr)
+		(fn(a) ? res.push(a) : undefined)
+	
+	return res
+}
+
+export const reduce = (arr, fn, initialVal) => {
+	let acc;
+	if(initialVal != undefined)
+		acc = initialVal
+	else 
+		acc = arr[0]
+
+	
+	for(const a of arr) {
+		acc = fn(acc, a)
+	}
+	return acc
+}

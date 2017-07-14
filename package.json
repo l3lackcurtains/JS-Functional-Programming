@@ -12,7 +12,8 @@
     "bluebird": "^3.5.0",
     "express": "^4.15.3",
     "mongoose": "^4.11.1",
-    "request": "^2.81.0"
+    "request": "^2.81.0",
+    "sync-request": "^4.1.0"
   },
   "devDependencies": {
     "babel-cli": "^6.24.1",

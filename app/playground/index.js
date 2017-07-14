@@ -19,4 +19,26 @@
  /*
  * Functional with array
 */
- require('./currying')
+ // require('./currying')
+
+
+/*
+ * Compositions and pipelines
+*/
+ // require('./compo')
+
+
+/*
+ * Fun with Functors
+*/
+ // require('./functors')
+
+/*
+ * Monads
+*/
+//  require('./monads')
+
+/*
+ * Generators
+*/
+ require('./generators')
