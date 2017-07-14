@@ -170,3 +170,70 @@ generator.next()
 /*
  * Generators for Async - A Real-World Case
 */
+
+let https = require('https')
+
+function httpGetAsync(url, callback) {
+    return https.get(url,
+    function(response) {
+        var body = ''
+        response.on('data', function(d) {
+            body += d
+        })
+        response.on('end', function() {
+            let parsed = JSON.parse(body)
+            callback(parsed)
+        })
+
+    })
+}
+
+// httpGetAsync('https://www.reddit.com/r/pics/.json', data => console.log(data))
+/*
+ * ---------------------------
+  { modhash: '',
+    children:
+    [ { kind: 't3', data:
+        { kind: 't3', data:
+        { kind: 't3', data:
+        . . .
+        { kind: 't3', data:
+    after: 't3_5bzyli',
+    before: null
+    }
+  * ---------------------------
+  what if we want data.children[0].data.url
+*/
+/*
+
+
+httpGetAsync('https://www.reddit.com/r/pics/.json', picJson => {
+    httpGetAsync(picJson.data.children[0].data.url+".json", firstPic => {
+        console.log(firstPic)
+    })
+})
+
+*/
+
+/*
+The above code will print the data as required. We are least worried about the data
+being printed. But we are worried about our code structure.
+*/
+
+// Solving the issue with the help of generators
+let generator2
+function request(url) {
+    httpGetAsync(url, function(response) {
+        generator2.next(response)
+    })
+}
+
+function* main2() {
+    let picJson = yield request('https://www.reddit.com/r/pics/.json')
+    let firstPictureData = yield request(picJson.data.children[0].data.url+".json")
+    console.log(firstPictureData)
+}
+
+
+generator2 = main2()
+// generator2.next()
