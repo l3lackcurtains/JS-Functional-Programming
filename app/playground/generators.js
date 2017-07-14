@@ -92,3 +92,81 @@ let genSeqRes = genSequence()
 // 4th time we call
 // => { value: undefined, done: true }
 
+// we can interate our generators
+
+/*
+
+for( let val of genSequence())
+    console.log(val)
+// first second third
+
+*/
+
+// Passing Data to Generators
+
+function* sayFullName() {
+    const firstName = yield
+    const secondName = yield
+    console.log(firstName, secondName)
+}
+
+let fullName = sayFullName()
+
+fullName.next()
+fullName.next('Anto')
+fullName.next('Otna')
+// Anto otnA
+
+
+/*
+ * ====================
+ * Using Generators to Handle Async Calls
+ * ====================
+*/
+
+// Generators for Async - A Simple Case
+
+let getdataOne = (cb) => {
+    setTimeout(function(){
+        cb('Dummy data one')
+    }, 1000)
+}
+
+let getdataTwo = (cb) => {
+    setTimeout(function(){
+        cb('dummy data two')
+    }, 1000)
+}
+
+getdataOne((data) => console.log('data received:', data))
+
+getdataTwo((data) => console.log('data received:', data))
+
+let generator
+let getDataOne = () => {
+    setTimeout(function(){
+        generator.next('dummy data one.')
+    }, 1000)
+}
+
+let getDataTwo = () => {
+    setTimeout(function(){
+        generator.next('dummy data two.')
+    }, 1000)
+}
+
+function* main() {
+    let dataOne = yield getDataOne()
+    // console.log('data one', dataOne)
+    let dataTwo = yield getDataTwo()
+    // prints after 1 + 1 = 2 sec
+    console.log('data one', dataOne)
+    console.log('data two', dataTwo)
+}
+
+generator = main()
+generator.next()
+
+/*
+ * Generators for Async - A Real-World Case
+*/
