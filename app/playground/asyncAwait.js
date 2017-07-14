@@ -114,7 +114,7 @@ Dealing with conditionals
 =======================================================
 */
 function makeRequest() {
-    return fetch('foo)
+    return fetch('foo')
             .then(res => {
                 if(data.doesItNeedAnotherReq) {
                     return makeAnotherReq(res)
