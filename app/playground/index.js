@@ -31,4 +31,14 @@
 /*
  * Fun with Functors
 */
- require('./functors')
+ // require('./functors')
+
+/*
+ * Monads
+*/
+//  require('./monads')
+
+/*
+ * Generators
+*/
+ require('./generators')
